@@ -83,7 +83,7 @@ export const saveScanToHistory = async (
     await AsyncStorage.setItem("scans", JSON.stringify(scanHistory));
   } catch (error) {
     console.error(
-      "Erreur lors de l'enregistrement du scan dans l'historique:",
+      "Error during loading to History:",
       error
     );
     throw error;

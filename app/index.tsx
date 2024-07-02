@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  SafeAreaView,
+} from "react-native";
 import { useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "@/constants/Colors";
 import Button from "@/components/Button";
 import { checkSession, isSessionValid } from "@/utils/auth";
 
-const welcome = () => {
+const { width, height } = Dimensions.get("window");
+
+const Welcome = () => {
   const router = useRouter();
   const [isChecking, setIsChecking] = useState(true);
 
@@ -36,81 +45,77 @@ const welcome = () => {
   };
 
   if (isChecking) {
-    return null; // Ou un composant de chargement
+    return null; // Or a loading component
   }
 
   return (
-    <LinearGradient
-      style={{ flex: 1 }}
-      colors={[Colors.secondary, Colors.primary]}
-    >
-      <View
-        style={{
-          paddingHorizontal: 22,
-          position: "absolute",
-          top: 450,
-          width: "100%",
-        }}
+    <SafeAreaView style={styles.container}>
+      <LinearGradient
+        style={styles.gradient}
+        colors={[Colors.secondary, Colors.primary]}
       >
-        <Text
-          style={{
-            fontSize: 55,
-            fontWeight: 800,
-            color: Colors.white,
-          }}
-        >
-          {" "}
-          Scan{" "}
-        </Text>
-        <Text
-          style={{
-            fontSize: 60,
-            fontWeight: 800,
-            left: 15,
-            color: Colors.white,
-          }}
-        >
-          {" "}
-          Access
-        </Text>
-
-        <Button
-          title="Start Now"
-          onPress={handleRegister}
-          style={{
-            marginTop: 50,
-            width: "100%",
-          }}
-        />
-
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            marginTop: 20,
-          }}
-        >
-          <Text style={{ color: Colors.white, fontSize: 15 }}>
-            Already register?{" "}
-          </Text>
-          <Pressable onPress={handleLogin}>
-            <Text
-              style={{
-                fontSize: 15,
-                color: Colors.white,
-                fontWeight: "bold",
-                marginLeft: 4,
-              }}
-            >
-              Login here
-            </Text>
-          </Pressable>
+        <View style={styles.contentContainer}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.titleText}>Scan</Text>
+            <Text style={styles.titleText}>Access</Text>
+          </View>
+          <Button
+            title="Start Now"
+            onPress={handleRegister}
+            style={styles.button}
+          />
+          <View style={styles.loginContainer}>
+            <Text style={styles.loginText}>Already registered? </Text>
+            <Pressable onPress={handleLogin}>
+              <Text style={styles.loginLink}>Login here</Text>
+            </Pressable>
+          </View>
         </View>
-      </View>
-    </LinearGradient>
+      </LinearGradient>
+    </SafeAreaView>
   );
 };
 
-export default welcome;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  gradient: {
+    flex: 1,
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+    paddingHorizontal: width * 0.05,
+    paddingBottom: height * 0.1,
+  },
+  titleContainer: {
+    marginBottom: height * 0.05,
+  },
+  titleText: {
+    fontSize: width * 0.15,
+    fontWeight: "800",
+    color: Colors.white,
+  },
+  button: {
+    marginTop: height * 0.03,
+    width: "100%",
+  },
+  loginContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: height * 0.02,
+  },
+  loginText: {
+    color: Colors.white,
+    fontSize: width * 0.04,
+  },
+  loginLink: {
+    fontSize: width * 0.04,
+    color: Colors.white,
+    fontWeight: "bold",
+    marginLeft: 4,
+  },
+});
 
-const styles = StyleSheet.create({});
+export default Welcome;

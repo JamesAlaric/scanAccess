@@ -21,6 +21,11 @@ const ScanView: React.FC<ScanViewProps> = ({ onClose, onScanComplete }) => {
   const handleBarCodeScanned = async (result: BarcodeScanningResult) => {
     if (result.data && !isScanning) {
       setIsScanning(true);
+      const timeoutId = setTimeout(() => {
+        setIsScanning(false);
+        alert("Scan took too long. Please Retry.");
+        onClose();
+      }, 90000);
       try {
         const { student, isEnabled } = await scanStudent(result.data);
         alert(

@@ -22,8 +22,7 @@
         "backgroundColor": "#ffffff"
       },
       "permissions": [
-        "android.permission.CAMERA",
-        "android.permission.RECORD_AUDIO"
+        "android.permission.CAMERA"
       ],
       "package": "com.dla.scanaccess"
     },
@@ -49,7 +48,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "bb57a5a7-50c9-4e42-9ac0-b127e9ac214e"
+        "projectId": "bdcd9b95-7698-47d9-bd76-b99f1ee90f43"
       }
     },
     "owner": "jay_01"
